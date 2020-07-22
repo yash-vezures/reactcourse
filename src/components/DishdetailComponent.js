@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Modal, ModalHeader, ModalBody, Label, Col, Row, Button } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { Control, LocalForm, Errors } from 'react-redux-form'
+import { baseUrl } from '../shared/baseUrl'
 
 import { Loading } from './LoadingComponent'
 
@@ -35,8 +36,7 @@ class CommentForm extends Component {
 
   handleSubmit(values) {
     this.toggleModal();
-    console.log(values)
-    this.props.addComment(this.props.dishId, values.rating, values.fullname, values.comment)
+    this.props.addComment(this.props.dishId, Number(values.rating), values.fullname, values.comment)
   }
 
   render() {
@@ -108,7 +108,7 @@ const renderDish = (dish) => {
   return (
     <div className="col-12 col-md-5 m-1">
       <Card>
-        <CardImg top src={dish.image} alt={dish.name} />
+        <CardImg top src={baseUrl + '/' + dish.image} alt={dish.name} />
         <CardBody>
           <CardTitle>{dish.name}</CardTitle>
           <CardText>{dish.description}</CardText>
@@ -160,7 +160,7 @@ export default (props) => {
   if (!props.dish) return <div></div>
 
   return (
-    <div class='container'>
+    <div className='container'>
       <div className="row">
         <Breadcrumb>
           <BreadcrumbItem>
@@ -175,6 +175,7 @@ export default (props) => {
       </div>
       <div className="row">
         {renderDish(props.dish)}
+        {console.log(props.comments)}
         {renderComments(props.comments, props.addComment, props.dish.id)}
       </div>
     </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom'
+import { baseUrl } from '../shared/baseUrl'
+
 
 import { Loading } from './LoadingComponent'
 
@@ -10,7 +12,7 @@ export default (props) => {
     <div key={dish.id} className="col-12 col-md-5 m-1">
       <Card key={dish.id} >
         <Link to={`/menu/${dish.id}`}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={baseUrl + '/' + dish.image} alt={dish.name} />
           <CardImgOverlay>
             <CardTitle>{dish.name}</CardTitle>
           </CardImgOverlay>
@@ -30,7 +32,7 @@ export default (props) => {
   if (props.dishes.errorMessage) return (
     <div className="container">
       <div className="row">
-        <h4>{this.props.dishErrMessage}</h4>
+        <h4>{props.dishes.errorMessage}</h4>
       </div>
     </div>
   )
